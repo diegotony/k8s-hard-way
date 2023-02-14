@@ -1,0 +1,16 @@
+- name: Configure LoadBalancer
+  hosts: loadbalancer
+  become: true
+  connection: local
+  tasks:
+  - name: docker
+    include_role:
+      name: geerlingguy.docker
+    vars:
+      docker_users:
+        - vagrant
+        
+  - name: haproxy
+    include_role:
+      name: haproxy
+

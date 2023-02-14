@@ -1,0 +1,35 @@
+- name: HAProxy folder
+  file:
+    path: "/home/vagrant/haproxy"
+    state: directory
+    mode: 744
+    owner: vagrant
+    group: vagrant
+
+- name: HAProxy config
+  copy:
+    src: haproxy.cfg
+    dest: "/home/vagrant/haproxy/haproxy.cfg"
+    mode: '0644'
+    owner: vagrant
+    group: vagrant
+
+- name: Install pip3
+  ansible.builtin.package:
+    name: python3-pip
+    state: present
+
+- name: Install docker module
+  ansible.builtin.pip:
+    name: docker
+
+- name: Run HAProxy
+  community.docker.docker_container:
+    name: haproxy
+    image: docker.io/library/haproxy:alpine
+    state: started
+    recreate: yes
+    privileged: yes
+    network_mode: host
+    volumes:
+      - /home/vagrant/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
