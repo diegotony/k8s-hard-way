@@ -1,15 +1,15 @@
-- name: HAProxy folder
+- name: traefik folder
   file:
-    path: "/home/vagrant/haproxy"
+    path: "/home/vagrant/traefik"
     state: directory
     mode: 744
     owner: vagrant
     group: vagrant
 
-- name: HAProxy config
+- name: traefik config
   copy:
-    src: haproxy.cfg
-    dest: "/home/vagrant/haproxy/haproxy.cfg"
+    src: traefik.yml
+    dest: "/home/vagrant/traefik/traefik.yml"
     mode: '0644'
     owner: vagrant
     group: vagrant
@@ -26,10 +26,10 @@
 - name: Run HAProxy
   community.docker.docker_container:
     name: haproxy
-    image: docker.io/library/haproxy:alpine
+    image: docker.io/library/traefik:v1.7.34-alpine
     state: started
     recreate: yes
     privileged: yes
     network_mode: host
     volumes:
-      - /home/vagrant/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - /home/vagrant/traefik/traefik.yml:/etc/traefik/traefik.yml:ro
