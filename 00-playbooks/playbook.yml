@@ -10,7 +10,6 @@
       docker_users:
         - vagrant
         
-  - name: haproxy
+  - name: nginx
     include_role:
-      name: haproxy
-
+      name: nginx
