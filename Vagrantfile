@@ -14,9 +14,9 @@ Vagrant.configure("2") do |config|
     lb.vm.hostname = "loadbalancer"
     lb.vm.network "private_network", ip: "192.168.56.5"
     lb.vm.provision "ansible_local" do |ansible|
-      lb.vm.synced_folder ".", "/vagrant", disabled: true, create: true
-      ansible.playbook = "/home/vagrant/00-playbooks/playbook.yml"
-      ansible.galaxy_role_file = "/home/vagrant/00-playbooks/requirements.yml"
+      lb.vm.synced_folder "/mnt/c/Users/tucot/projects/k8s-hard-way", "/vagrant"
+      ansible.playbook = "00-playbooks/playbook.yml"
+      ansible.galaxy_role_file = "00-playbooks/requirements.yml"
     end
   end
 
