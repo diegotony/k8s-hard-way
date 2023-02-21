@@ -19,7 +19,13 @@ destroy:
 
 # Provisioning a CA and Generating TLS Certificates
 ca_tls:
-    cd 01-ca-tls && sh 01-ca.sh
-    cd 01-ca-tls && sh 02-admin.sh
+    # cd 01-ca-tls && sh 01-ca.sh
+    # cd 01-ca-tls && sh 02-admin.sh
+    # cd 01-ca-tls && sh 03-system-nodes.sh
+    # cd 01-ca-tls && sh 04-kube-controller-manager.sh
+    # cd 01-ca-tls && sh 05-kube-proxy.sh
+    # cd 01-ca-tls && sh 06-kube-scheduler.sh
+    # cd 01-ca-tls && sh 07-k8s-api-server.sh
+    cd 01-ca-tls && sh 08-service-account.sh
 
  

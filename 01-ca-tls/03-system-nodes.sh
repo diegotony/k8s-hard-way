@@ -1,4 +1,5 @@
-for instance in worker-0 worker-1 worker-2; do
+# !/usr/bin/env bash
+for instance in "192.168.56.21", "192.168.56.22"; do
 cat > ${instance}-csr.json <<EOF
 {
   "CN": "system:node:${instance}",
@@ -32,3 +33,5 @@ cfssl gencert \
   -profile=kubernetes \
   ${instance}-csr.json | cfssljson -bare ${instance}
 done
+
+
