@@ -1,8 +1,11 @@
-# !/usr/bin/env bash
-for instance in "192.168.56.21", "192.168.56.22"; do
-cat > ${instance}-csr.json <<EOF
+#!/usr/bin/env bash
+node_ips=("192.168.56.21" "192.168.56.22")
+for i in ${!node_ips[@]}; do
+  node_name="node-$(( $i + 1))"
+  cat > ${node_name}-csr.json <<EOF
+
 {
-  "CN": "system:node:${instance}",
+  "CN": "system:node:${node_name}",
   "key": {
     "algo": "rsa",
     "size": 2048
@@ -19,19 +22,15 @@ cat > ${instance}-csr.json <<EOF
 }
 EOF
 
-EXTERNAL_IP=$(gcloud compute instances describe ${instance} \
-  --format 'value(networkInterfaces[0].accessConfigs[0].natIP)')
 
-INTERNAL_IP=$(gcloud compute instances describe ${instance} \
-  --format 'value(networkInterfaces[0].networkIP)')
 
 cfssl gencert \
   -ca=ca.pem \
   -ca-key=ca-key.pem \
   -config=ca-config.json \
-  -hostname=${instance},${EXTERNAL_IP},${INTERNAL_IP} \
+  -hostname=${node_name},${external_ip}  \
   -profile=kubernetes \
-  ${instance}-csr.json | cfssljson -bare ${instance}
+  ${node_name}-csr.json | cfssljson -bare ${node_name}
 done
 
 

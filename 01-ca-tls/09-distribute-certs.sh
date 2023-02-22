@@ -1,18 +1,17 @@
+
 {
   for instance in node-1 node-2; do
-    vagrant ssh ${instance} -c "cp -av /vagrant/ca.pem \
-      /vagrant/${instance}-key.pem \
-      /vagrant/${instance}.pem \
-      /home/vagrant"
+    vagrant scp /mnt/c/Users/tucot/projects/k8s-hard-way/01-ca-tls/ca.pem ${instance}:/home/vagrant
+    vagrant scp /mnt/c/Users/tucot/projects/k8s-hard-way/01-ca-tls/${instance}-key.pem ${instance}:/home/vagrant
+    vagrant scp /mnt/c/Users/tucot/projects/k8s-hard-way/01-ca-tls/${instance}.pem ${instance}:/home/vagrant
+
   done
 
   for instance in controller-1 controller-2 controller-3; do
-    vagrant ssh ${instance} -c "cp -av /vagrant/ca.pem \
-      /vagrant/ca-key.pem \
-      /vagrant/kubernetes.pem \
-      /vagrant/kubernetes-key.pem \
-      /vagrant/service-account.pem \
-      /vagrant/service-account-key.pem \
-      /home/vagrant"
+    vagrant scp /mnt/c/Users/tucot/projects/k8s-hard-way/01-ca-tls/ca-key.pem ${instance}:/home/vagrant
+    vagrant scp /mnt/c/Users/tucot/projects/k8s-hard-way/01-ca-tls/kubernetes.pem  ${instance}:/home/vagrant
+    vagrant scp /mnt/c/Users/tucot/projects/k8s-hard-way/01-ca-tls/kubernetes-key.pem ${instance}:/home/vagrant
+    vagrant scp /mnt/c/Users/tucot/projects/k8s-hard-way/01-ca-tls/service-account.pem ${instance}:/home/vagrant
+    vagrant scp /mnt/c/Users/tucot/projects/k8s-hard-way/01-ca-tls/service-account-key.pem ${instance}:/home/vagrant
   done
 }
