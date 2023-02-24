@@ -38,3 +38,5 @@ EOF
 cfssl gencert -initca ca-csr.json | cfssljson -bare ca
 
 }
+
+mv ca* ../files

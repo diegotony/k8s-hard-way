@@ -20,10 +20,11 @@ cat > kube-proxy-csr.json <<EOF
 EOF
 
 cfssl gencert \
-  -ca=ca.pem \
-  -ca-key=ca-key.pem \
-  -config=ca-config.json \
+  -ca=../files/ca.pem \
+  -ca-key=../files/ca-key.pem \
+  -config=../files/ca-config.json \
   -profile=kubernetes \
   kube-proxy-csr.json | cfssljson -bare kube-proxy
-
 }
+
+mv kube-proxy* ../files

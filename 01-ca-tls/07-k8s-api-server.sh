@@ -24,11 +24,13 @@ cat > kubernetes-csr.json <<EOF
 EOF
 
 cfssl gencert \
-  -ca=ca.pem \
-  -ca-key=ca-key.pem \
-  -config=ca-config.json \
+  -ca=../files/ca.pem \
+  -ca-key=../files/ca-key.pem \
+  -config=../files/ca-config.json \
   -hostname=10.32.0.1,${CONTROLPLANE_IPS},${LOADBALANCER_IP},127.0.0.1,${KUBERNETES_HOSTNAMES} \
   -profile=kubernetes \
   kubernetes-csr.json | cfssljson -bare kubernetes
 
 }
+
+mv kubernetes* ../files

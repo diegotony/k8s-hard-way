@@ -20,10 +20,12 @@ cat > admin-csr.json <<EOF
 EOF
 
 cfssl gencert \
-  -ca=ca.pem \
-  -ca-key=ca-key.pem \
-  -config=ca-config.json \
+  -ca=../files/ca.pem \
+  -ca-key=../files/ca-key.pem \
+  -config=../files/ca-config.json \
   -profile=kubernetes \
   admin-csr.json | cfssljson -bare admin
 
 }
+
+mv admin* ../files

@@ -20,10 +20,11 @@ cat > kube-controller-manager-csr.json <<EOF
 EOF
 
 cfssl gencert \
-  -ca=ca.pem \
-  -ca-key=ca-key.pem \
-  -config=ca-config.json \
+  -ca=../files/ca.pem \
+  -ca-key=../files/ca-key.pem \
+  -config=../files/ca-config.json \
   -profile=kubernetes \
   kube-controller-manager-csr.json | cfssljson -bare kube-controller-manager
-
 }
+
+mv kube-controller-manager* ../files

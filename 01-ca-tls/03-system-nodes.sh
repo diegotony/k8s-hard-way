@@ -25,12 +25,13 @@ EOF
 
 
 cfssl gencert \
-  -ca=ca.pem \
-  -ca-key=ca-key.pem \
-  -config=ca-config.json \
+  -ca=../files/ca.pem \
+  -ca-key=../files/ca-key.pem \
+  -config=../files/ca-config.json \
   -hostname=${node_name},${external_ip}  \
   -profile=kubernetes \
   ${node_name}-csr.json | cfssljson -bare ${node_name}
 done
 
-
+mv node-1* ../files
+mv node-2* ../files

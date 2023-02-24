@@ -1,6 +1,3 @@
 .vagrant/
 geerlingguy.docker/
-01-ca-tls/*.pem
-01-ca-tls/*.json
-01-ca-tls/*.csr
-01-ca-tls/.csr
+files/**
