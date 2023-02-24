@@ -19,7 +19,7 @@ destroy:
     vagrant destroy -f -g
 
 # 2 Provisioning a CA and Generating TLS Certificates
-ca_tls:
+generate_certs:
     cd 01-ca-tls && ./01-ca.sh
     cd 01-ca-tls && ./02-admin.sh
     cd 01-ca-tls && ./03-system-nodes.sh
@@ -33,5 +33,15 @@ ca_tls:
 distribute_certs:
     cd 01-ca-tls && ./09-distribute-certs.sh
 
-generate_auth:
+# 4 Provisioning auth
+generate_auths:
     cd 02-auth-files && ./01-controller-manager.sh
+    cd 02-auth-files && ./02-kubelet.sh
+    cd 02-auth-files && ./03-kube-proxy.sh
+    cd 02-auth-files && ./04-scheduler.sh
+    cd 02-auth-files && ./05-admin.sh
+
+# 4 Distribute auth
+distribute_auths:
+    cd 02-auth-files && ./06-distribute.sh
+
