@@ -2,6 +2,10 @@
 default:
     @just --list
 
+# Destroy everything
+destroy:
+    vagrant destroy -f -g
+
 # 0 Install Dependencies (LINUX)
 # dependencies:
 #     sudo apt install curl wget -y
@@ -13,10 +17,6 @@ default:
 # 1 Create the resources
 create:
     vagrant up
-
-# Destroy everything
-destroy:
-    vagrant destroy -f -g
 
 # 2 Provisioning CA and Generating TLS Certificates
 generate_certs:
@@ -46,5 +46,9 @@ distribute_auths:
     cd 02-auth-files && ./06-distribute.sh
 
 # 6 encryption
-distribute_auths:
+generate_encryption:
     cd 03-encrytion && ./01-encryption.sh
+
+# 6 encryption
+generate_etcd:
+    cd 04-etcd && ./01-etcd.sh
