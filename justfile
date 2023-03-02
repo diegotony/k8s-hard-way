@@ -31,7 +31,7 @@ generate_certs:
 
 # 3 Distribute CA and TLS Certificates in nodes and controllers
 distribute_certs:
-    cd 01-ca-tls && ./09-distribute-certs.sh
+    cd 01-ca-tls && ./09-distribute.sh
 
 # 4 Provisioning auth
 generate_auths:
@@ -47,7 +47,7 @@ distribute_auths:
 
 # 6 encryption
 generate_encryption:
-    cd 03-encrytion && ./01-encryption.sh
+    cd 03-encryption && ./01-encryption.sh
 
 # 6 encryption
 generate_etcd:

@@ -40,9 +40,8 @@ EOF
     mv *-etcd.service ../files
 
   for instance in controller-1 controller-2 controller-3; do
-    vagrant scp /mnt/c/Users/tucot/projects/k8s-hard-way/files/${instance}-etcd.service ${instance}:/home/vagrant
 
-    vagrant ssh ${instance} -c "sudo cp /vagrant/${instance}-etcd.service \
+    vagrant ssh ${instance} -c "sudo cp /home/vagrant/${instance}-etcd.service \
       /etc/systemd/system/etcd.service"
 
     vagrant ssh ${instance} -c "wget -q --show-progress --https-only --timestamping \
@@ -53,7 +52,7 @@ EOF
 
     vagrant ssh ${instance} -c "sudo mkdir -p /etc/etcd /var/lib/etcd && \
         sudo chmod 700 /var/lib/etcd && \
-        sudo cp ca.pem kubernetes-key.pem kubernetes.pem /etc/etcd/"
+        sudo cp  /home/vagrant/ca.pem  /home/vagrant/kubernetes-key.pem  /home/vagrant/kubernetes.pem /etc/etcd/"
 
     vagrant ssh ${instance} -c "sudo systemctl daemon-reload && \
         sudo systemctl enable etcd && \
