@@ -1,8 +1,5 @@
 # k8s-hard-way
-Survival to setup k8s
-
-## CA - TLS
-
+Survival to k8s setup
 ## Requirementds
 - Vagrant
 - VirtualBox
