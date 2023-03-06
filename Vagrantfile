@@ -11,6 +11,7 @@ Vagrant.configure("2") do |config|
     v.cpus = 1
     v.customize [ "modifyvm", :id, "--uartmode1", "disconnected" ]
   end
+
   # disable swap check here https://serverfault.com/questions/881517/why-disable-swap-on-kubernetes
   # LB
   config.vm.provision "shell", inline: "sudo swapoff -a && sudo sed -i '/swap/d' /etc/fstab" 
