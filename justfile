@@ -3,8 +3,9 @@ default:
     @just --list
 
 # Destroy everything
-destroy:
+clean:
     vagrant destroy -f -g
+    # rm -rf files/*
 
 # 0 Install Dependencies (LINUX)
 # dependencies:
@@ -52,3 +53,13 @@ generate_encryption:
 # 6 encryption
 generate_etcd:
     cd 04-etcd && ./01-etcd.sh
+
+# run all
+run:
+    @just create
+    @just generate_certs
+    @just distribute_certs
+    @just generate_auths
+    @just distribute_auths
+    @just generate_encryption
+    @just generate_etcd
