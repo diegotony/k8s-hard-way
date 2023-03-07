@@ -18,6 +18,7 @@ clean:
 # 1 Create the resources
 create:
     vagrant up
+    #  --destroy-on-error --no-provision --provider virtualbox
 
 # 2 Provisioning CA and Generating TLS Certificates
 generate_certs:

@@ -40,7 +40,8 @@ EOF
     mv *-etcd.service ../files
 
   for instance in controller-1 controller-2 controller-3; do
-
+    vagrant scp /mnt/c/Users/tucot/projects/k8s-hard-way/files/${instance}-etcd.service ${instance}:/home/vagrant
+    
     vagrant ssh ${instance} -c "sudo cp /home/vagrant/${instance}-etcd.service \
       /etc/systemd/system/etcd.service"
 
