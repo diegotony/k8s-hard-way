@@ -1,3 +1,7 @@
 .vagrant/
 geerlingguy.docker/
 files/**
+PackageKit/
+apt/
+multipath/
+systemd/

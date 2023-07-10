@@ -100,19 +100,37 @@ RestartSec=5
 WantedBy=multi-user.target
 EOF
   done
+    mv *.service ../files
+    mv *.yaml ../files
 
   for instance in controller-1 controller-2 controller-3; do
+
     vagrant ssh ${instance} -c 'echo -e "192.168.56.21 node-1\n192.168.56.22 node-2"|sudo tee -a /etc/hosts'
 
     vagrant ssh ${instance} -c "sudo mkdir -p /var/lib/kubernetes/ && \
       sudo mkdir -p /etc/kubernetes/config"
-    
-    vagrant ssh ${instance} -c "sudo cp /vagrant/${node_name}-kube-apiserver.service /etc/systemd/system/kube-apiserver.service && \
-      sudo cp kube-controller-manager.kubeconfig /var/lib/kubernetes/ && \
-      sudo cp /vagrant/kube-controller-manager.service /etc/systemd/system/kube-controller-manager.service && \
-      sudo cp kube-scheduler.kubeconfig /var/lib/kubernetes/ && \
-      sudo cp /vagrant/kube-scheduler.yaml /etc/kubernetes/config/kube-scheduler.yaml && \
-      sudo cp /vagrant/kube-scheduler.service /etc/systemd/system/kube-scheduler.service"
+
+# 
+    vagrant scp /mnt/c/Users/tucot/projects/k8s-hard-way/files/${instance}-kube-apiserver.service ${instance}:/etc/systemd/system/kube-apiserver.service
+
+# 
+    vagrant scp /mnt/c/Users/tucot/projects/k8s-hard-way/files/kube-controller-manager.kubeconfig ${instance}:/var/lib/kubernetes/
+
+# 
+    vagrant scp /mnt/c/Users/tucot/projects/k8s-hard-way/files/kube-controller-manager.service ${instance}:/etc/systemd/system/kube-controller-manager.service
+
+# 
+    vagrant scp /mnt/c/Users/tucot/projects/k8s-hard-way/files/kube-controller-manager.service ${instance}:/etc/systemd/system/kube-controller-manager.service
+
+#
+    vagrant scp /mnt/c/Users/tucot/projects/k8s-hard-way/files/kube-scheduler.kubeconfig ${instance}:/var/lib/kubernetes/
+
+#
+    vagrant scp /mnt/c/Users/tucot/projects/k8s-hard-way/files/kube-scheduler.yaml ${instance}:/etc/kubernetes/config/kube-scheduler.yaml
+
+#
+    vagrant scp /mnt/c/Users/tucot/projects/k8s-hard-way/files/kube-scheduler.service ${instance}:/etc/systemd/system/kube-scheduler.service
+
 
     vagrant ssh ${instance} -c "wget -q --show-progress --https-only --timestamping \
         https://storage.googleapis.com/kubernetes-release/release/v1.21.0/bin/linux/amd64/kube-apiserver \
@@ -120,12 +138,23 @@ EOF
         https://storage.googleapis.com/kubernetes-release/release/v1.21.0/bin/linux/amd64/kube-scheduler \
         https://storage.googleapis.com/kubernetes-release/release/v1.21.0/bin/linux/amd64/kubectl"
 
+
     vagrant ssh ${instance} -c "chmod +x kube-apiserver kube-controller-manager kube-scheduler kubectl && \
         sudo mv kube-apiserver kube-controller-manager kube-scheduler kubectl /usr/local/bin/"
+###
+    vagrant scp /mnt/c/Users/tucot/projects/k8s-hard-way/files/ca.pem ${instance}:/var/lib/kubernetes/
 
-    vagrant ssh ${instance} -c "sudo cp ca.pem ca-key.pem kubernetes-key.pem kubernetes.pem \
-          service-account-key.pem service-account.pem \
-          encryption-config.yaml /var/lib/kubernetes/"
+    vagrant scp /mnt/c/Users/tucot/projects/k8s-hard-way/files/ca-key.pem ${instance}:/var/lib/kubernetes/
+
+    vagrant scp /mnt/c/Users/tucot/projects/k8s-hard-way/files/kubernetes-key.pem ${instance}:/var/lib/kubernetes/
+
+    vagrant scp /mnt/c/Users/tucot/projects/k8s-hard-way/files/kubernetes.pem ${instance}:/var/lib/kubernetes/
+
+    vagrant scp /mnt/c/Users/tucot/projects/k8s-hard-way/files/service-account-key.pem ${instance}:/var/lib/kubernetes/
+
+    vagrant scp /mnt/c/Users/tucot/projects/k8s-hard-way/files/service-account.pem ${instance}:/var/lib/kubernetes/
+
+    vagrant scp /mnt/c/Users/tucot/projects/k8s-hard-way/files/encryption-config.yaml ${instance}:/var/lib/kubernetes/
 
     vagrant ssh ${instance} -c "sudo systemctl daemon-reload && \
         sudo systemctl enable kube-apiserver kube-controller-manager kube-scheduler && \
@@ -170,3 +199,4 @@ EOF
 
   vagrant ssh controller-1 -c "kubectl apply --kubeconfig /vagrant/admin.kubeconfig -f /vagrant/kubelet-authorizer.yaml"
 }
+mv *.yaml ../files
