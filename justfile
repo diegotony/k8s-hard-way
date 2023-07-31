@@ -51,9 +51,13 @@ distribute_auths:
 generate_encryption:
     cd 03-encryption && ./01-encryption.sh
 
-# 6 encryption
+# 7 generate_etcd
 generate_etcd:
     cd 04-etcd && ./01-etcd.sh
+
+# 8 generate_controlpane
+generate_controlpane:
+    cd 05-controlpane && ./01-controlpane.sh
 
 # run all
 run:
@@ -63,4 +67,5 @@ run:
     @just generate_auths
     @just distribute_auths
     @just generate_encryption
-    @just generate_etcd
+    # @just generate_etcd
+    # @just generate_controlpane

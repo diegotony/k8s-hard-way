@@ -1,5 +1,5 @@
 # k8s-hard-way
-Survival to k8s setup
+Survival to k8s setup using VM and ansible
 ## Requirementds
 - Vagrant
 - VirtualBox
@@ -8,6 +8,7 @@ Survival to k8s setup
 - cfssl
 - justfile
 - bash
+- 
 
 ## Pieces of Code
 ```
